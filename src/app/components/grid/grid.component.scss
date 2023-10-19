@@ -1,0 +1,23 @@
+.wrapper {
+  max-width: 100vw;
+  margin: 40px 80px;
+
+  table th {
+    background-color: #3f51b5;
+    color: white;
+
+    &:first-child {
+      border-radius: 10px 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 10px 0 0;
+    }
+  }
+
+  table td button:hover {
+    background-color: transparent;
+    color: red;
+  }
+
+}

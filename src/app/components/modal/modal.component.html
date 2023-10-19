@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <header>
+    <h1 mat-dialog-title>Cadastrar produto</h1>
+    <div mat-dialog-actions>
+      <button color="warn" mat-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </header>
+  <div mat-dialog-content>
+    <form [formGroup]="myForm">
+      <mat-form-field>
+        <mat-label>Nome do Produto</mat-label>
+        <input matInput formControlName="name" name="name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categoria do Produto</mat-label>
+        <input matInput formControlName="category">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nome do Fornecedor</mat-label>
+        <input matInput formControlName="supplier">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Valor do Produto</mat-label>
+        <input matInput formControlName="price">
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="cadastrarProduto()">Cadastrar</button>
+    </form>
+  </div>
+</div>
+
