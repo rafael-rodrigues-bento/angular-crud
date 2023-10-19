@@ -20,4 +20,14 @@
     color: red;
   }
 
+  .empty-form {
+
+    display: flex;
+    justify-content: center;
+    margin-top: 300px;
+
+    h2 {
+      font-size: 40px;
+    }
+  }
 }

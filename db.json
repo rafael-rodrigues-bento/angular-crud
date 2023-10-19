@@ -1,18 +1,3 @@
 {
-  "products": [
-    {
-      "id": 1,
-      "name": "Camiseta",
-      "category": "Roupas",
-      "supplier": "Renner",
-      "price": 69.9
-    },
-    {
-      "id": 2,
-      "name": "Caderno",
-      "category": "Material Escolar",
-      "supplier": "Kalunga",
-      "price": 21
-    }
-  ]
+  "products": []
 }

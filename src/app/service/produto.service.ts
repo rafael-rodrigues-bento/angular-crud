@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, tap } from "rxjs";
 
 export interface Product {
   id: number;
@@ -16,6 +16,8 @@ export interface Product {
 export class ProdutoService {
   private readonly API = "http://localhost:3000/products"
 
+  newProductAdded = new EventEmitter<Product>();
+
   constructor(
     private readonly http: HttpClient) { }
     getAllProducts(): Observable<Product[]>{
@@ -23,7 +25,11 @@ export class ProdutoService {
     }
 
     addProduct(product: Product): Observable<Product> {
-      return this.http.post<Product>(this.API, product)
+      return this.http.post<Product>(this.API, product).pipe(
+        tap(newProduct => {
+          this.newProductAdded.emit(newProduct)
+        })
+      )
     }
 
     deleteProduct(productId: number) {

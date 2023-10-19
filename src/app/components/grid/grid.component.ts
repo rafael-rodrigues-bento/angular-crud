@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from "rxjs";
 import { Product, ProdutoService } from "src/app/service/produto.service";
 
@@ -26,10 +26,18 @@ export class GridComponent implements OnInit, OnDestroy {
     ngOnInit() {
       this.dataSubscription = this.produtoService.getAllProducts().subscribe((data) => {
           this.dataSource = data;
+          this.refreshTable();
       });
-  }
+      this.produtoService.newProductAdded.subscribe((newProduct) => {
+        this.dataSource.push(newProduct);
+        this.refreshTable();
+      })
+    }
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
   }
 
+  private refreshTable() {
+    this.dataSource = [...this.dataSource];
+  }
 }

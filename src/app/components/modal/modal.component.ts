@@ -24,11 +24,15 @@ export class ModalComponent {
     })
   }
   cadastrarProduto() {
-    const formData = this.myForm.value
-    const dado_atualizado = this.produtoService.addProduct(formData).subscribe(() => {
-      this.dialogRef.close()
-
-    })
-    return dado_atualizado
+    if (this.myForm.valid) {
+      const formData = this.myForm.value;
+      this.produtoService.addProduct(formData).subscribe(() => {
+        this.dialogRef.close();
+      });
+    } else {
+      // Se o formulário não for válido, você pode tratar o erro ou mostrar uma mensagem ao usuário.
+      // Por exemplo:
+      alert('Preencha todos os campos obrigatórios.')
+    }
   }
 }
