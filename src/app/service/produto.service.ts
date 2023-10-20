@@ -17,6 +17,7 @@ export class ProdutoService {
   private readonly API = "http://localhost:3000/products"
 
   newProductAdded = new EventEmitter<Product>();
+  newProductUpdated = new EventEmitter<Product>()
 
   constructor(
     private readonly http: HttpClient) { }
@@ -35,5 +36,14 @@ export class ProdutoService {
     deleteProduct(productId: number) {
         const url = `${this.API}/${productId}`
         return this.http.delete(url)
+    }
+
+    updateProduct(productId: number, productData: Product): Observable<Product> {
+        const url = `${this.API}/${productId}`
+        return this.http.put<Product>(url, productData).pipe(
+          tap(updatedProduct => {
+            this.newProductUpdated.emit(updatedProduct)
+          })
+        )
     }
   }

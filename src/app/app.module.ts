@@ -19,6 +19,10 @@ import { GridComponent } from './components/grid/grid.component';
 import { HomeComponent } from './pages/home/home.component';
 import {MatTableModule} from '@angular/material/table';
 
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
+import { ModalUpdateComponent } from './components/modal-update/modal-update.component';
+
 
 
 @NgModule({
@@ -28,7 +32,8 @@ import {MatTableModule} from '@angular/material/table';
     HeaderComponent,
     ModalComponent,
     GridComponent,
-    HomeComponent
+    HomeComponent,
+    ModalUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,9 @@ import {MatTableModule} from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    CommonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

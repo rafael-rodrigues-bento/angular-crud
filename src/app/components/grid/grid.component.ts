@@ -1,6 +1,9 @@
-import { Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import { Product, ProdutoService } from "src/app/service/produto.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
+import { ModalUpdateComponent } from "../modal-update/modal-update.component";
 
 @Component({
   selector: 'app-grid',
@@ -8,9 +11,14 @@ import { Product, ProdutoService } from "src/app/service/produto.service";
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit, OnDestroy {
-    constructor(private readonly produtoService: ProdutoService) {}
 
-    displayedColumns: string[] = ['name', 'category', 'supplier', 'price','delete'];
+    constructor(
+    private readonly produtoService: ProdutoService,
+    private toastr: ToastrService,
+    public dialog: MatDialog
+    ) {}
+
+    displayedColumns: string[] = ['id', 'name', 'category', 'supplier', 'price','edit','delete'];
     dataSource: Product[] = [];
     dataSubscription!: Subscription;
 
@@ -23,6 +31,13 @@ export class GridComponent implements OnInit, OnDestroy {
       }
     }
 
+    updateProduct(element: Product) {
+      this.dialog.open(ModalUpdateComponent, {
+        data: { product: element },
+      });
+      this.refreshTable()
+    }
+
     ngOnInit() {
       this.dataSubscription = this.produtoService.getAllProducts().subscribe((data) => {
           this.dataSource = data;
@@ -32,6 +47,14 @@ export class GridComponent implements OnInit, OnDestroy {
         this.dataSource.push(newProduct);
         this.refreshTable();
       })
+      this.produtoService.newProductUpdated.subscribe((updatedProduct) => {
+        const index = this.dataSource.findIndex(item => item.id === updatedProduct.id);
+         if (index !== -1) {
+          this.dataSource[index] = updatedProduct;
+          this.refreshTable();
+        }
+      })
+
     }
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();

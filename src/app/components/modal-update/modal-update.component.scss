@@ -1,0 +1,23 @@
+.wrapper {
+  margin: 0 20px;
+
+  header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 14px;
+
+  button:focus {
+    padding: 5px;
+  }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+
+}
+
